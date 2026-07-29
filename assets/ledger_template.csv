@@ -1,0 +1,8 @@
+source,isin,name,asset_class,quantity,buy_date,sale_date,buy_value,sale_value,fmv_31jan2018_per_unit,expenses
+Zerodha,INE002A01018,Reliance Industries,equity_listed,50,2017-06-12,2025-08-20,32000,74000,920,120
+Zerodha,INE467B01029,TCS,equity_listed,20,2024-11-05,2025-09-18,72000,79000,,60
+Zerodha,INE040A01034,HDFC Bank,equity_listed,15,2025-02-10,2025-06-02,26000,23000,,40
+Groww,INF109K012R1,ICICI Pru Bluechip Fund,equity_mf,300,2021-03-15,2025-12-04,18000,41000,,0
+Groww,INF109K01Z48,ICICI Pru Corp Bond Fund,debt_mf,500,2023-08-10,2026-01-22,50000,55500,,0
+CAMS,INF204K01K15,Nippon Gold Savings Fund,gold_intl_mf,400,2022-05-02,2025-11-11,40000,58000,,0
+Zerodha,INE009A01021,Infosys buyback,buyback,10,2023-01-09,2025-10-15,14000,18000,,0

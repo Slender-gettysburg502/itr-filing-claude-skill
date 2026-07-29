@@ -1,0 +1,43 @@
+{
+  "age": 30,
+  "resident": true,
+  "filing_date": "2026-07-28",
+
+  "salary_gross": 1080000,
+  "exempt_allowances_old": 0,
+  "professional_tax": 2400,
+
+  "house_property_income": 0,
+
+  "income_other_sources": {
+    "rd_interest": 24000,
+    "fd_interest": 18000,
+    "savings_interest": 9000,
+    "dividend": 12000,
+    "buyback_deemed_dividend": 0
+  },
+
+  "capital_gains": {
+    "stcg_111a": 0,
+    "ltcg_112a": 0,
+    "stcg_slab": 0,
+    "ltcg_other_12_5": 0
+  },
+
+  "deductions_old": {
+    "80C": 150000,
+    "80D": 25000,
+    "80TTA": 9000
+  },
+  "deductions_both": {
+    "80CCD2": 0
+  },
+
+  "taxes_paid": {
+    "tds": 62000,
+    "advance_tax": 0,
+    "self_assessment": 0
+  },
+
+  "cg_quarters": {}
+}

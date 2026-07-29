@@ -1,0 +1,41 @@
+# Everything is ignored by default. This is deliberate.
+#
+# Tax documents land in this folder while you work: AIS, TIS, Form 26AS,
+# broker P&L exports, pre-filled JSONs, finished returns. Those carry a PAN,
+# an Aadhaar number, bank account numbers and a full home address. None of it
+# belongs in a public repo, and a deny list only protects you against the
+# filenames someone thought of in advance.
+#
+# So: nothing is tracked unless it is named below. To add a new project file,
+# add an explicit "!" rule for it.
+
+*
+
+!/.gitignore
+!/README.md
+!/LICENSE
+!/SKILL.md
+
+!/references/
+!/references/**
+
+!/scripts/
+!/scripts/**
+
+!/assets/
+!/assets/**
+
+!/schema/
+!/schema/**
+
+# Never, under any circumstances, even if a rule above would allow it.
+work/
+*.xls
+*.xlsx
+*_Prefill*.json
+*_upload_*.json
+*TIS*.pdf
+*_16*.pdf
+.DS_Store
+__pycache__/
+*.pyc

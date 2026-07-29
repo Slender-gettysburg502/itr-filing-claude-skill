@@ -1,0 +1,115 @@
+{
+  "_comment": "Input for scripts/build_itr2_json.py. Every value here is made up. Replace all of it. New regime only. Amounts in rupees, dates as YYYY-MM-DD.",
+
+  "regime": "new",
+
+  "personal": {
+    "first_name": "YOUR FIRST NAME",
+    "surname": "YOUR SURNAME",
+    "pan": "AAAPA1234A",
+    "dob": "1995-01-31",
+    "aadhaar": "123456789012",
+    "status": "I",
+    "address": {
+      "residence_no": "House No 1",
+      "residence_name": "",
+      "road": "Some Road",
+      "locality": "Some Locality",
+      "city": "SOME CITY",
+      "state_code": "12",
+      "country_code": "91",
+      "pin": 110001,
+      "mobile_country": 91,
+      "mobile": 9000000000,
+      "email": "you@example.com"
+    }
+  },
+
+  "filing": {
+    "_comment": "return_sec 11 is 139(1), on or before the due date. State codes are listed in the schema under StateCode.",
+    "return_sec": 11,
+    "residential_status": "RES",
+    "conditions_res_status": "1",
+    "seventh_proviso": "N",
+    "held_unlisted": "N",
+    "fii": "N",
+    "due_date": "2026-07-31"
+  },
+
+  "salary": {
+    "_comment": "nature: CGOV, SGOV, PSU, PE, PESG, PEPS, PEO, OTH. The employer PIN is not optional in practice; a blank one serialises as 0 and fails validation.",
+    "employers": [
+      {
+        "name": "YOUR EMPLOYER PVT LTD",
+        "nature": "OTH",
+        "address": "Employer address line",
+        "city": "SOME CITY",
+        "state_code": "12",
+        "pin": 110001,
+        "gross_salary": 1200000
+      }
+    ]
+  },
+
+  "other_sources": {
+    "savings_interest": 9000,
+    "term_deposit_interest": 24000,
+    "other_interest": 0,
+    "income_tax_refund_interest": 0,
+    "dividend": 12000,
+    "dividend_quarters": {"q1": 0, "q2": 3000, "q3": 4000, "q4": 5000, "q5": 0}
+  },
+
+  "capital_gains": {
+    "_comment": "Figures come from build_worksheet.py. Quarters are the Table F split by sale date and must sum to the gain.",
+    "stcg_111a": {
+      "consideration": 150000,
+      "cost": 120000,
+      "expenses": 0,
+      "quarters": {"q1": 0, "q2": 0, "q3": 30000, "q4": 0, "q5": 0}
+    },
+    "ltcg_112a": {
+      "gain": 0,
+      "quarters": {}
+    }
+  },
+
+  "schedule_112a_csv": null,
+
+  "taxes_paid": {
+    "tds": 0,
+    "advance_tax": 0,
+    "tcs": 0
+  },
+
+  "challans": [],
+  "_challan_example": [
+    {"BSRCode": "0510308", "DateDep": "2026-07-28", "SrlNoOfChaln": 12345, "Amt": 5000}
+  ],
+
+  "banks": [
+    {
+      "IFSCCode": "HDFC0001234",
+      "BankName": "HDFC BANK",
+      "BankAccountNo": "50100123456789",
+      "AccountType": "SB",
+      "UseForRefund": "true"
+    }
+  ],
+
+  "assets_outside_india": "NO",
+
+  "verification": {
+    "name": "YOUR FULL NAME",
+    "father_name": "YOUR FATHER NAME",
+    "capacity": "S",
+    "place": "SOME CITY",
+    "date": "2026-07-28"
+  },
+
+  "creation": {
+    "_comment": "The portal only accepts direct uploads stamped with a registered Software Provider ID. This one is a placeholder, so route the output through the offline utility.",
+    "sw_provider_id": "SW00000001",
+    "city": "SOME CITY"
+  }
+}
