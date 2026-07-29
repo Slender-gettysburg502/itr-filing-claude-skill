@@ -28,8 +28,15 @@
 !/schema/
 !/schema/**
 
+# Only the finished, annotated screenshots. The raw ones stay local: a
+# re-taken screenshot is an easy way to catch a name or a PAN by accident.
+!/docs/
+!/docs/images/
+!/docs/images/*.png
+
 # Never, under any circumstances, even if a rule above would allow it.
 work/
+docs/images/raw/
 *.xls
 *.xlsx
 *_Prefill*.json

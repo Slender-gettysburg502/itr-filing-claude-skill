@@ -173,13 +173,37 @@ you built yourself gets rejected with "Invalid Software Provider ID" before
 anyone looks at the figures.
 
 So the JSON is not the upload. It is the input to the official Common Offline
-Utility. Download the utility from the portal, choose Import Draft ITR JSON,
-point it at your file, and file from there. Everything arrives pre-filled and
-you spend a few minutes reviewing instead of an hour typing.
+Utility, which does have a registered ID and can file on your behalf.
 
-Let the utility validate and recompute before you submit. If its tax figure
-differs from `compute_tax.py`, the utility is right and something upstream is
-misclassified. That rule has no exceptions.
+**Download it here:**
+[Common Offline Utility (ITR 1, 2, 3 and ITR 4)](<https://www.incometax.gov.in/iec/foportal/downloads#common%20offline%20utility%20(itr%201,2,3%20and%20itr%204)>).
+It is one program covering ITR-1 through ITR-4, so the ITR-2 you want is inside
+it. Install it and sign in, and it will say "Utility connected Online" in the
+top right.
+
+Then three clicks, in this order.
+
+**1. File Return**, on the "ITR 1 - 4 for A.Y. 2026-27" card.
+
+![Step 1: click File Return](docs/images/step1-file-return.png)
+
+**2. Import draft ITR filled in Online mode or import JSON generated from
+Excel/HTML utility**, which is the third radio button, then **Continue**. Take
+the third one, not "Import Pre-filled Data". Pre-filled data is the portal's
+summary of what it already knows about you, which is a different file and does
+not contain your return.
+
+![Step 2: choose the third import option](docs/images/step2-import-draft.png)
+
+**3. Attach File**, pick the JSON you built, then **Proceed**.
+
+![Step 3: attach the JSON](docs/images/step3-attach-json.png)
+
+Everything arrives pre-filled, so you spend a few minutes reviewing instead of
+an hour typing. Work through the schedules, then let the utility validate and
+recompute before you submit. If its tax figure differs from `compute_tax.py`,
+the utility is right and something upstream is misclassified. That rule has no
+exceptions.
 
 ## The thing that surprises everyone
 

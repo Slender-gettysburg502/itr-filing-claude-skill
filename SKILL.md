@@ -243,6 +243,11 @@ utility, never as a filed position.
 - `scripts/build_worksheet.py` — capital-gains ledger to ITR-2 figures
 - `scripts/compute_tax.py` — both-regime computation with 234B/234C
 - `scripts/build_itr2_json.py` — build and schema-validate the return JSON
+- `scripts/schema_validate.py` — Draft-04 validator using only the standard
+  library, so validation still runs where `jsonschema` is not installed. Also
+  audits its own keyword coverage, so a pass cannot quietly mean nothing ran
+- `scripts/package_for_claude_app.py` — package the skill as a ZIP the Claude
+  app accepts, for claude.ai rather than Claude Code
 - `scripts/patch_prefill_json.py` — inspect and edit the pre-filled JSON
 - `schema/ITR-2_2026_Main_V1.1.json` — the department's published schema
 - `schema/CBDT-ITR2-Validation-Rules-AY2026-27-V1.0.pdf` — the validation rules

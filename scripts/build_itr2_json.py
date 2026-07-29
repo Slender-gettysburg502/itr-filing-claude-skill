@@ -166,6 +166,18 @@ def build(cfg):
     fil = cfg.get("filing", {})
     ver = cfg["verification"]
 
+    # A dropped PIN is invisible in the output, so say it out loud here.
+    if not addr.get("pin"):
+        warnings.append(
+            "No PIN code for the taxpayer's address, so the field is omitted "
+            "rather than sent as 0. Add it before filing.")
+    for employer in cfg.get("salary", {}).get("employers", []):
+        if not employer.get("pin"):
+            warnings.append(
+                f"No PIN code for employer {employer.get('name', '?')!r}. The "
+                f"utility rejects a blank one as \"0 is not greater or equal "
+                f"to 100000\", so fill it in.")
+
     # --- salary
     employers = cfg.get("salary", {}).get("employers", [])
     gross_salary = sum(rupees(e.get("gross_salary", 0)) for e in employers)
@@ -303,7 +315,10 @@ def build(cfg):
                     ("CityOrTownOrDistrict", addr["city"]),
                     ("StateCode", addr["state_code"]),
                     ("CountryCode", addr.get("country_code", "91")),
-                    ("PinCode", rupees(addr["pin"])),
+                    # Same guard as the employer PIN below. Without it a blank
+                    # PIN becomes 0, which the emit filter then drops, and the
+                    # return goes out with no PIN and nothing said about it.
+                    ("PinCode", rupees(addr["pin"]) if addr.get("pin") else None),
                     ("CountryCodeMobile", int(addr.get("mobile_country", 91))),
                     ("MobileNo", int(addr["mobile"])),
                     ("EmailAddress", addr["email"])) if v},
@@ -627,20 +642,54 @@ def main():
     cfg = json.loads(Path(args.input).read_text())
     doc, summary, warnings = build(cfg)
 
-    try:
-        from jsonschema import Draft4Validator
-        schema = json.loads(SCHEMA.read_text())
-        errors = sorted(Draft4Validator(schema).iter_errors(doc),
-                        key=lambda e: list(e.absolute_path))
+    def report(errors, validator_name, coverage=""):
         if errors:
             print(f"SCHEMA VALIDATION FAILED: {len(errors)} error(s)\n")
-            for e in errors[:25]:
-                print(f"  at {'.'.join(str(x) for x in e.absolute_path)}")
-                print(f"     {e.message[:200]}")
+            for path, message in errors[:25]:
+                print(f"  at {path}")
+                print(f"     {message[:200]}")
+            if len(errors) > 25:
+                print(f"  ... and {len(errors) - 25} more")
             sys.exit(1)
-        print(f"schema: PASS ({SCHEMA.name})")
+        print(f"schema: PASS ({SCHEMA.name}, {validator_name}{coverage})")
+
+    schema = json.loads(SCHEMA.read_text())
+    try:
+        from jsonschema import Draft4Validator
     except ImportError:
-        print("schema: SKIPPED (pip install jsonschema to validate)")
+        # No jsonschema on this machine. Fall back to the bundled validator
+        # rather than skipping, because a return built with no validation at
+        # all is worse than one that fails here.
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        try:
+            import schema_validate
+        except ImportError:
+            print("schema: COULD NOT VALIDATE. Neither jsonschema nor "
+                  "scripts/schema_validate.py is available, so nothing has "
+                  "checked this file. Do not upload it.", file=sys.stderr)
+            sys.exit(2)
+
+        unimplemented = schema_validate.audit_keywords(schema)
+        if unimplemented:
+            # Say so loudly: a pass would not mean what it looks like.
+            print(f"schema: PARTIAL COVERAGE. The builtin validator does not "
+                  f"implement {', '.join(unimplemented)}, which this schema "
+                  f"uses. A pass below does not cover those keywords.")
+            coverage = f", partial keyword coverage ({len(unimplemented)} unchecked)"
+        else:
+            coverage = ", full keyword coverage"
+        try:
+            errors = schema_validate.validate(doc, schema)
+        except schema_validate.SchemaError as exc:
+            print(f"schema: COULD NOT VALIDATE ({exc})", file=sys.stderr)
+            sys.exit(2)
+        report(errors, "builtin validator", coverage)
+    else:
+        errors = [(".".join(str(x) for x in e.absolute_path) or "<root>",
+                   e.message)
+                  for e in sorted(Draft4Validator(schema).iter_errors(doc),
+                                  key=lambda e: list(e.absolute_path))]
+        report(errors, "jsonschema")
 
     print("\n  gross salary            {gross_salary:>12,}\n"
           "  less standard deduction {sd:>12,}\n"
